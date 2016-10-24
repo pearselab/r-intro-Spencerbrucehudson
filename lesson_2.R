@@ -1,6 +1,3 @@
-3. Write a function that calculates whether a number is a prime number (hint: what does 2 %% 3 give you?)
-4. Write a loop that prints out the numbers from 1 to 20, printing “Good: NUMBER” if the number is
-divisible by five and “Job: NUMBER” if then number is prime, and nothing otherwise.
 
 value <- 20
 while(value >= 10){
@@ -24,4 +21,22 @@ num = 1:20
 for(i in num){
   if(i%%2==0) print(i)
 }
+## 3. Write a function that calculates whether a number is a prime number (hint: what does 2 %% 3 give you?)
+
+prime <- function(x){
+  if (x == 2) {
+    TRUE
+  } else if (any(x %% 2:(x-1) == 0)) {
+    FALSE
+  } else { 
+    TRUE
+    }
+}
+
+## 4. Write a loop that prints out the numbers from 1 to 20, printing “Good: NUMBER” if the number is
+## divisible by five and “Job: NUMBER” if then number is prime, and nothing otherwise.
+
+
+
+
 
