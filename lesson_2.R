@@ -36,7 +36,17 @@ prime <- function(x){
 ## 4. Write a loop that prints out the numbers from 1 to 20, printing “Good: NUMBER” if the number is
 ## divisible by five and “Job: NUMBER” if then number is prime, and nothing otherwise.
 
-
+num = 1:20
+for(i in num){
+  if(i%%5==0)  
+    print('Good: NUMBER')
+ else if (i == 2) 
+  print('Job: NUMBER')
+ else if (any(i %% 2:(i-1) == 0 )) 
+  print('Nothing Otherwise')
+ else  
+  print('Job: NUMBER')
+}
 
 
 
