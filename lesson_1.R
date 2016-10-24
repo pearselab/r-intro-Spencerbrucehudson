@@ -65,19 +65,48 @@ y = matrix(data=rnorm(4), nrow=2, ncol=2)
 
 x %*% y
 
+# lower.tri 
+x = matrix(data=rnorm(4), nrow=5, ncol=5)
+lower.tri(x)
 
-lower.tri, upper.tri, diag (try ?"%*%", not ?%*%, as this is an operator, and document
-the function, not the maths 
-gl 
-identical
-image
-library
-length
-jitter
-                                        ls; what does rm(list=ls()) do?
-                                        mean, median, max, min
-                                        paste
-                                        read.csv, read.table, write.csv, write.table
+# upper.tri
+upper.tri(geno)
+
+# diag 
+
+# gl 
+
+# identical
+
+# image
+
+# library
+
+# length
+
+# jitter
+
+ls 
+
+what does rm(list=ls()) do?
+                                        
+mean 
+
+median 
+
+max
+
+min
+                                        
+paste
+                                        
+read.csv 
+
+read.table 
+
+write.csv
+
+write.table
 
 ################################################
 ## Bonus exercises #############################
