@@ -1,11 +1,4 @@
 
-value <- 20
-while(value >= 10){
-  value <- value - 1
-}
-print("Finished!")
-
-
 ## 1. Write a loop that prints out the numbers from 20 to 10
 for(i in 20:10){
   print(i)
@@ -43,7 +36,7 @@ for(i in num){
  else if (i == 2) 
   print('Job: NUMBER')
  else if (any(i %% 2:(i-1) == 0 )) 
-  print('Nothing Otherwise')
+  print('Nothing')
  else  
   print('Job: NUMBER')
 }
