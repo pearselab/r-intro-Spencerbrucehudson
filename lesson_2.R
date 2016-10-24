@@ -32,36 +32,28 @@ prime <- function(x){
 num = 1:20
 for(i in num){
   if(i%%5==0)  
-    print(c(i,'Good: NUMBER'))
+    print(paste(i,'Good: NUMBER'))
  else if (i == 2) 
-  print(c(i,'Job: NUMBER'))
+  print(paste(i,'Job: NUMBER'))
  else if (any(i %% 2:(i-1) == 0 )) 
-  print(c(i,'Nothing'))
+  print(paste(i,'Nothing'))
  else  
-  print(c(i,'Job: NUMBER'))
+  print(paste(i,'Job: NUMBER'))
 }
 
 # 5. A biologist is modelling population growth using a Gompertz curve, which is defined as y(t) = a.e−b.e−c.t
 # where y is population size, t is time, a and b are parameters, and e is the exponential function. Write
 # them a function that calculates population size at any time for any values of its parameters.
 
-x <- 4
-double <- function(x){
-  x <- x * 2
-  return(x)
-}
-double(x)
-print(x)
-
-a = 4
-b = 5
-c = 6
-t = 2
-gz <- function(y){
-  y <- a^(-b^(-c*t))
+a = 100000
+b = 1
+c = 1
+e = 2.71828
+gz <- function(t){
+  y <- (a*e^-b*e^-c*t)
     return(y)
 }
-gz(10)
+gz(15) # At time equals 15 years?
 
 
 # 6. The biologist likes your function so much they want you to write another function that plots the progress
