@@ -45,26 +45,51 @@ for(i in num){
 # where y is population size, t is time, a and b are parameters, and e is the exponential function. Write
 # them a function that calculates population size at any time for any values of its parameters.
 
-a = 100000
-b = 1
-c = 1
-e = 2.71828
-gz <- function(t){
-  y <- (a*e^-b*e^-c*t)
+gz <- function(t, a, b, c){
+  y <- (a*exp(-b*exp(-c*t)))
     return(y)
 }
-gz(15) # At time equals 15 years?
+gz(15, 100, 1, 1) 
 
 
 # 6. The biologist likes your function so much they want you to write another function that plots the progress
 # of the population over a given length of time. Write it for them.
 
+gz <- function(t, a, b, c){
+  y <- (a*exp(-b*exp(-c*t)))
+  p <- plot(y~t, xlab = 'Time (Years)', ylab= 'Population Size', type='l')
+ return(paste(y,t))
+}
+gz(1:15, 100, 1, 1)
+
 
 # 7. The biologist has fallen in love with your plotting function, but want to colour y values above a as blue,
 # and y values above b as red. Change your function to allow that.
+
+gz <- function(t, a, b, c){
+  y <- (a*exp(-b*exp(-c*t)))
+  p <- plot(y~t, xlab = 'Time (Years)', ylab= 'Population Size', type='l', col= ifelse(y > a, 'blue','red'))
+  return(paste(y,t))
+}
+gz(1:15, 10, .4, .5)
 
 
 # 8. You are beginning to suspect the biologist is taking advantage of you. Modify your function to plot in
 # purple any y value that’s above a and b. Hint: try putting 3==3 & 2==2 and 3==4 | 2==2 into an if
 # statement and see what you get. Using this construction may make this simpler.
 
+# 9. Write a function that draws boxes of a specified width and height that look like this (height 3, width 5):
+#   *****
+#   * *
+#   *****
+#   10. Modify your box function to put text centred inside the box, like this:
+#   *************
+#   * *
+#   * some text *
+#   * *
+#   *************
+#   11. Modify your box function to build boxes of arbitrary text, taking dimensions specified in terms of
+# dimensions, not the text. For example, box("wdp", 3, 9, "hey") might produce:
+#   wdpwdpwdp
+# w hey w
+# wdpwdpwdp
