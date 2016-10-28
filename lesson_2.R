@@ -78,18 +78,42 @@ gz(1:15, 10, .4, .5)
 # purple any y value that’s above a and b. Hint: try putting 3==3 & 2==2 and 3==4 | 2==2 into an if
 # statement and see what you get. Using this construction may make this simpler.
 
+
+
+
 # 9. Write a function that draws boxes of a specified width and height that look like this (height 3, width 5):
 #   *****
-#   * *
+#   *   *
 #   *****
+
+box <- function(x, y){
+  w1 <- (rep("*", x))
+  cat(w1, '\n')
+  cnt <- 0
+  repeat{
+  cat('*',(rep(' ',x-2)),'*','\n')
+  cnt <- cnt+1
+  if(cnt > y-3){
+    break
+  }
+}
+  w2 <- (rep('*',x))
+  cat(w2)
+}
+box(5,3)
+
 #   10. Modify your box function to put text centred inside the box, like this:
 #   *************
-#   * *
+#   *           *
 #   * some text *
-#   * *
+#   *           *
 #   *************
+
+
 #   11. Modify your box function to build boxes of arbitrary text, taking dimensions specified in terms of
 # dimensions, not the text. For example, box("wdp", 3, 9, "hey") might produce:
+
+
 #   wdpwdpwdp
 # w hey w
 # wdpwdpwdp
