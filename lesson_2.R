@@ -86,7 +86,7 @@ gz(1:15, 10, .4, .5)
 #   *   *
 #   *****
 
-box <- function(x, y){
+box <- function(y, x){
   w1 <- (rep("*", x))
   cat(w1, '\n')
   cnt <- 0
@@ -100,20 +100,71 @@ box <- function(x, y){
   w2 <- (rep('*',x))
   cat(w2)
 }
-box(5,3)
+box(3,5)
 
-#   10. Modify your box function to put text centred inside the box, like this:
+#   10. Modify your box function to put text centered inside the box, like this:
 #   *************
 #   *           *
 #   * some text *
 #   *           *
 #   *************
 
+box <- function(y, x, z){
+  z <- z
+  a <- nchar(z)
+  f <- round(((x-1-(a/2))/2), digits = 0)
+  w1 <- (rep("*", x))
+  cat(w1, '\n')
+  cnt <- 0
+  repeat{
+    cat('*',(rep(' ',x-2)),'*','\n')
+    cnt <- cnt+1
+    if(cnt > y-3){
+      break
+    }
+  }
+  cat('*',rep(' ', f-1), z, rep(' ', f-1), "*",'\n')
+    cnt <- 0
+  repeat{
+    cat('*',(rep(' ',x-2)),'*','\n')
+    cnt <- cnt+1
+    if(cnt > y-3){
+      break
+    }
+  }
+  w2 <- (rep('*',x))
+  cat(w2)
+}
+box(3,8,'some text')
+
 
 #   11. Modify your box function to build boxes of arbitrary text, taking dimensions specified in terms of
-# dimensions, not the text. For example, box("wdp", 3, 9, "hey") might produce:
+# dimensions, not the text. For example, box("t", 3, 9, "hey") might produce:
 
-
-#   wdpwdpwdp
-# w hey w
-# wdpwdpwdp
+box <- function(t, y, x, z){
+  z <- z
+  a <- nchar(z)
+  f <- round(((x-1-(a/2))/2), digits = 0)
+  w1 <- (rep(t, x))
+  cat(w1, '\n', sep='')
+  cnt <- 0
+  repeat{
+    cat(t,(rep(' ',x)),t,'\n')
+    cnt <- cnt+1
+    if(cnt > y-3){
+      break
+    }
+  }
+  cat(t,rep(' ', (x/2)-3), z, rep(' ', (x/2)-2), t,'\n')
+  cnt <- 0
+  repeat{
+    cat(t,(rep(' ',x)),t,'\n')
+    cnt <- cnt+1
+    if(cnt > y-3){
+      break
+    }
+  }
+  w2 <- (rep(t,x))
+  cat(w2, sep='')
+}
+box('wdp',3,8,'some text')
