@@ -196,20 +196,19 @@ hurdle(1, 5, 10)
 
 ## Reworked for problem 13
 
-hurdle1 <- function(n){
-  datalist=list()
-  for(i in 1:n){
-  if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = 1, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
-    ran <- rpois(1, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
-  }else{
-    ran <- 0
+hurdle1 <- function(sitenum){
+  r <- matrix(nrow = sitenum, ncol = 1)
+  for(i in 1:sitenum){
+    if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = 1, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
+      abun <- rpois(1, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
+    }else{
+      abun <- 0
+    }
+    r[i,] <- abun
   }
-  datalist[[i]] <- ran
-  }
-  big_data = do.call(rbind,datalist)
-  print(big_data)
+  return(r)
 }
-# (presence probability, # sites, poisson lambda)
+
 hurdle1(5)
 
 # 13. An ecologist really likes your hurdle function (will you never learn?). Write them a function that simulates
