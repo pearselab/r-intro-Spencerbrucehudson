@@ -194,24 +194,27 @@ hurdle <- function(p, n, lam){
 # (presence probability, # sites, poisson lambda)
 hurdle(1, 5, 10)
 
+## Reworked for problem 13
+
+hurdle1 <- function(n){
+  datalist=list()
+  for(i in 1:n){
+  if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = 1, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
+    ran <- rpois(1, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
+  }else{
+    ran <- 0
+  }
+  datalist[[i]] <- ran
+  }
+  big_data = do.call(rbind,datalist)
+  print(big_data)
+}
+# (presence probability, # sites, poisson lambda)
+hurdle1(5)
 
 # 13. An ecologist really likes your hurdle function (will you never learn?). Write them a function that simulates
 # lots of species (each with their own p and λ) across n sites. Return the results in a matrix where each
 # species is a column, and each site a row (this is the standard used for ecology data in R).
-
-## Reworked for problem 13
-
-hurdle1 <- function(n){
-  if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = 1, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
-    ran <- rpois(n, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
-    return(paste(ran))
-  }else{
-    return(0)
-  }
-}
-
-# (presence probability, # sites, poisson lambda)
-hurdle1(5)
 
 hurdle2 <- function(n, spnum){
   datalist=list()
@@ -220,7 +223,7 @@ hurdle2 <- function(n, spnum){
     datalist[[i]] <- test
     }
   big_data = do.call(cbind,datalist)
-  return(big_data)
+  print(big_data)
     }
 # (presence probability, # poisson values, poisson lambda)
 hurdle2(10, 7)
