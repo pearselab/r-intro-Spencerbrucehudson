@@ -216,18 +216,15 @@ hurdle1(5)
 # lots of species (each with their own p and λ) across n sites. Return the results in a matrix where each
 # species is a column, and each site a row (this is the standard used for ecology data in R).
 
-hurdle2 <- function(n, spnum){
-  # datalist=list()
-  r <- matrix(nrow=n, ncol=spnum)
+# 
+hurdle2 <- function(sitenum, spnum){
+  r <- matrix(nrow=sitenum, ncol=spnum)
   for(i in 1:spnum){
-   r[,i] <- hurdle1(n)
-    # datalist[[i]] <- test
+   r[,i] <- hurdle1(sitenum)
     }
-  # big_data = do.call(cbind,datalist)
-  # print(big_data)
   return(r)
     }
-# (presence probability, # poisson values, poisson lambda)
+
 hurdle2(10, 7)
 
 
