@@ -223,7 +223,6 @@ hurdle2 <- function(sitenum, spnum){
     }
   return(r)
     }
-
 hurdle2(10, 7)
 
 
