@@ -185,36 +185,44 @@ box3('wdp',3,8,'some text')
 hurdle <- function(p, n, lam){
   if(rbinom(1, 1, p) == 1){ # species presence based on binomial with given probability of success
     ran <- rpois(n, lam) # number of sites and rate parameter
-    cat(ran)
+    return(paste(ran))
   }else{
-    cat('Species is Absent', 0)
+    return(0)
   }
 }
 
-# (presence probability, # poisson values, poisson lambda)
-hurdle(1, 1, 10)
+# (presence probability, # sites, poisson lambda)
+hurdle(1, 5, 10)
+
+## Reworked for problem 13
+
+hurdle <- function(n){
+  if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = 1, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
+    ran <- rpois(n, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
+    return(paste(ran))
+  }else{
+    return(0)
+  }
+}
+
+# (presence probability, # sites, poisson lambda)
+hurdle(5)
 
 # 13. An ecologist really likes your hurdle function (will you never learn?). Write them a function that simulates
 # lots of species (each with their own p and λ) across n sites. Return the results in a matrix where each
 # species is a column, and each site a row (this is the standard used for ecology data in R).
 
-hurdle <- function(n, spnum){
+hurdle2 <- function(n, spnum){
   datalist=list()
   for(i in 1:spnum){
-    p <- rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = spnum, replace = TRUE))
-    # if(rbinom(1, 1, sample(seq(from = 0, to = 1, by = .001), size = spnum, replace = TRUE)) == 1){ # species presence based on binomial with given probability of success
-    # abundance <- rpois(n, sample(seq(from = 0, to = 10, by = .1), size = 1, replace = TRUE)) # number of sites and rate parameter
-  # }else{
-    # break
-  }
-    dat <- data.frame(p=p)
-    datalist[[i]] <- dat
-    big_data = do.call(rbind,datalist)
-    print(big_data)
-}
-
+    test <- hurdle(n)
+    datalist[[i]] <- test
+    }
+  big_data = do.call(cbind,datalist)
+  return(big_data)
+    }
 # (presence probability, # poisson values, poisson lambda)
-hurdle(4, 5)
+hurdle2(10, 7)
 
 
 # 14. Professor Savitzky approaches you with a delicate problem. A member of faculty became disoriented
