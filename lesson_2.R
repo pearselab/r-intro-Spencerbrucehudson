@@ -208,7 +208,7 @@ hurdle1 <- function(sitenum){
   }
   return(r)
 }
-
+# (presence probability, # sites, poisson lambda)
 hurdle1(5)
 
 # 13. An ecologist really likes your hurdle function (will you never learn?). Write them a function that simulates
@@ -223,8 +223,8 @@ hurdle2 <- function(sitenum, spnum){
     }
   return(r)
     }
-hurdle2(10, 7)
 
+hurdle2(10, 7)
 
 # 14. Professor Savitzky approaches you with a delicate problem. A member of faculty became disoriented
 # during fieldwork, and is now believed to be randomly wandering somewhere in the desert surrounding
