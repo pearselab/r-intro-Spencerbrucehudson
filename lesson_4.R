@@ -136,7 +136,7 @@ table$amino[table$amino==c('TAG')]<-'STOP'
 sequence <- 'ACGATATACGA'
 
 translate <- function(sequence){
-  a <- sapply(seq(from=1, to=nchar(sequence), by=3), function(i) substr(sequence, i, i+2))
+  a <- sapply(seq(from=1, to=nchar(sequence), by=3), function(cnt) substr(sequence, cnt,cnt+2))
   b <- data.frame(a=a)
   grep('')
   cat(a,sep='')
