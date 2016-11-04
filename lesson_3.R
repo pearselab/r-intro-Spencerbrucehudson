@@ -75,7 +75,7 @@ lineplot <- function(point1, point2){
 plot(x = c(point1$x, point2$x), y= c(point1$y, point2$y), type='b', xlab ='X', ylab='Y')
   
 }
-line(a, b)
+lineplot(a, b)
 
 # 5. Implement a polygon class that stores a polygon from point objects. Hint: a polygon is really just a
 # load of lines.

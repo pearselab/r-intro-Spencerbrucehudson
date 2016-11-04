@@ -8,36 +8,137 @@ dataset = replicate(10, rnorm(5, mean = (sample(seq(0,100,by = 1))), sd = (sampl
 # above). You don’t have to slavishly replicated summary.data.frame; write something you would find
 # useful.
 
-summ <- function(dataset){
+numsum <- function(dataset){
+  numeric <- dataset[sapply(dataset, is.numeric)]
       m <- cat('Mean','\n',mean(dataset),'\n')
       s <- cat('Standard Deviation','\n', sd(dataset),'\n')
       return(cat(m,s))
 }
       
-summ(dataset)
+summ(catdata)
 
 # 3. Write a summary function to summarise datasets containing only categorical (...!is.numeric...) data.
 
-summ <- function(dataset){
-  l <- cat('Mean','\n',mean(dataset),'\n')
-  s <- cat('Standard Deviation','\n', sd(dataset),'\n')
-  return(cat(m,s))
+catdata = read.csv('May_2016_lizards.csv')
+
+catsum <- function(dataset){
+  factor <- dataset[sapply(dataset, is.factor)]
+  return(summary(factor))
 }
 
-summ(dataset)
+catsum(catdata)
 
 # 4. Finally, make a summary function capable of covering both kinds of data. Hint: if your function doesn’t
 # call the functions above, you’re likely doing it wrong.
 
+supersum <- function(dataset){
+  n <- numsum()
+  c <- catsum()
+  return(paste(c,n))
+}
+
+supersum(catdata)
 
 
 # 5. A molecular biologist you owe a favour approaches you with a problem. They have a DNA sequence
-# (e.g., ‘ACGATATACGA’) that they need to group into codons (groups of three) and translate into proteins
+# (e.g., ‘ACGATATACGA’) that they need to group into aminos (groups of three) and translate into proteins
 # (ignoring all complexities of translation and transcription). Write them a function that will take an
-# arbitrary input sequence and an arbitrary codon lookup table, and output the translated sequence. Hint:
+# arbitrary input sequence and an arbitrary amino lookup table, and output the translated sequence. Hint:
 #   expand.grid will help you make a demo lookup table.
 
 
+## Making the lookup table ###
+nucleotide <- c('T','C','A','G')
+table <- expand.grid(nucleotide, nucleotide, nucleotide)
+table$codon <- paste(table$Var1, table$Var2, table$Var3, sep="")
+
+table$amino <- table$codon
+table$amino[table$amino==c('GCT')]<-'A'
+table$amino[table$amino==c('GCC')]<-'A'
+table$amino[table$amino==c('GCA')]<-'A'
+table$amino[table$amino==c('GCG')]<-'A'
+
+table$amino[table$amino==c("CGT")]<-'R'
+table$amino[table$amino==c("CGC")]<-'R'
+table$amino[table$amino==c('CGA')]<-'R'
+table$amino[table$amino==c('CGG')]<-'R'
+table$amino[table$amino==c('AGA')]<-'R'
+table$amino[table$amino==c('AGG')]<-'R'
+
+table$amino[table$amino==c('AAT')]<-'N'
+table$amino[table$amino==c('AAC')]<-'N'
+table$amino[table$amino==c('GAT')]<-'D'
+table$amino[table$amino==c('GAC')]<-'D'
+table$amino[table$amino==c('TGT')]<-'C'
+table$amino[table$amino==c('TGC')]<-'C'
+table$amino[table$amino==c('CAA')]<-'Q'
+table$amino[table$amino==c('CAG')]<-'Q'
+table$amino[table$amino==c('GAA')]<-'E'
+table$amino[table$amino==c('GAG')]<-'E'
+table$amino[table$amino==c('GGT')]<-'G'
+table$amino[table$amino==c('GGC')]<-'G'
+table$amino[table$amino==c('GGA')]<-'G'
+table$amino[table$amino==c('GGG')]<-'G'
+
+table$amino[table$amino==c('CAT')]<-'H'
+table$amino[table$amino==c('CAC')]<-'H'
+
+table$amino[table$amino==c('AAT')]<-'I'
+table$amino[table$amino==c('ATC')]<-'I'
+table$amino[table$amino==c('ATA')]<-'I'
+table$amino[table$amino==c('ATG')]<- "START"
+table$amino[table$amino==c('TTA')]<-'L'
+table$amino[table$amino==c('TTG')]<-'L'
+table$amino[table$amino==c('CTT')]<-'L'
+table$amino[table$amino==c('CTC')]<-'L'
+table$amino[table$amino==c('CTA')]<-'L'
+table$amino[table$amino==c('CTG')]<-'L'
+
+table$amino[table$amino==c('AAA')]<-'K'
+table$amino[table$amino==c('AAG')]<-'K'
+table$amino[table$amino==c('ATG')]<-'M'
+table$amino[table$amino==c('TTT')]<-'F'
+table$amino[table$amino==c('TTC')]<-'F'
+
+table$amino[table$amino==c('CCT')]<-'P'
+table$amino[table$amino==c('CCA')]<-'P'
+table$amino[table$amino==c('CCG')]<-'P'
+table$amino[table$amino==c('CCC')]<-'P'
+
+table$amino[table$amino==c('TCT')]<-'S'
+table$amino[table$amino==c('TCC')]<-'S'
+table$amino[table$amino==c('TCA')]<-'S'
+table$amino[table$amino==c('TCG')]<-'S'
+
+table$amino[table$amino==c('AGT')]<-'S'
+table$amino[table$amino==c('AGC')]<-'S'
+
+table$amino[table$amino==c('ACT','ACC','ACA','ACG')]<-'T'
+
+table$amino[table$amino==c('TGG')]<-'W'
+table$amino[table$amino==c('TAT','TAC')]<-'Y'
+table$amino[table$amino==c('GTT','GTC','GTA','GTG')]<-'V'
+table$amino[table$amino==c('TAA','TGA')]<-'STOP'
+table$amino[table$amino==c('TAG')]<-'STOP'
+
+
+grep('CCA', table$amino)
+
+
+
+translate <- function(code){
+
+  
+  a <- substr(code, 1, 3)
+  b <- substr(code, 4, 6)
+  c <- substr(code, 7, 9)
+  d <- substr(code, 10, 12)
+  
+  return(paste(a,b,c,d))
+}
+
+
+protein = translate()
 
 
 # 6. The molecular biologist now asks if you would write a function that will take multiple sequences, translate
@@ -49,9 +150,9 @@ summ(dataset)
 # across sequences?
 
 
-# 8. The molecular biologist’s advisor has shouted at them for ignoring start-codons and stop-codons. Modify
-# your function from (5) to cut off all bits of the sequences before (and including) the start codon, and then
-# chop off everything after (and including) the stop codon. The advisor is certain you’ve re-used your code
+# 8. The molecular biologist’s advisor has shouted at them for ignoring start-aminos and stop-aminos. Modify
+# your function from (5) to cut off all bits of the sequences before (and including) the start amino, and then
+# chop off everything after (and including) the stop amino. The advisor is certain you’ve re-used your code
 # from (5) for (6), so this will help with that function too, right?
 
 
