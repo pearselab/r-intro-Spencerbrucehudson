@@ -10,16 +10,17 @@ dataset = replicate(10, rnorm(5, mean = (sample(seq(0,100,by = 1))), sd = (sampl
 
 numsum <- function(dataset){
   numeric <- dataset[sapply(dataset, is.numeric)]
-      m <- cat('Mean','\n',mean(dataset),'\n')
-      s <- cat('Standard Deviation','\n', sd(dataset),'\n')
+      m <- cat('Column Means','\n',colMeans(dataset),'\n')
+      s <- cat('Column Sums','\n', colSums(dataset),'\n')
       return(cat(m,s))
 }
       
-summ(catdata)
+numsum(dataset)
 
 # 3. Write a summary function to summarise datasets containing only categorical (...!is.numeric...) data.
 
 catdata = read.csv('May_2016_lizards.csv')
+catdata = na.omit(catdata)
 
 catsum <- function(dataset){
   factor <- dataset[sapply(dataset, is.factor)]
@@ -32,8 +33,8 @@ catsum(catdata)
 # call the functions above, you’re likely doing it wrong.
 
 supersum <- function(dataset){
-  n <- numsum()
-  c <- catsum()
+  n <- numsum(dataset)
+  c <- catsum(dataset)
   return(paste(c,n))
 }
 
@@ -132,23 +133,31 @@ table$amino[table$amino==c('TAA')]<-'STOP'
 table$amino[table$amino==c('TGA')]<-'STOP'
 table$amino[table$amino==c('TAG')]<-'STOP'
 
-## Example Sequence
-sequence <- 'ACGATATACGA'
+sequence <- 'ACTATGAGTA'
 
 translate <- function(sequence){
   a <- sapply(seq(from=1, to=nchar(sequence), by=3), function(cnt) substr(sequence, cnt,cnt+2))
-  b <- data.frame(a=a)
-  grep('')
-  cat(a,sep='')
+ b <- paste(table$amino[c(match(a, table$codon))] , collapse ='')
+  return(b)
 }
 
-
-protein = translate()
+protein = translate(multiseq[2,1])
 
 
 # 6. The molecular biologist now asks if you would write a function that will take multiple sequences, translate
 # them, and then flag where the sequences match-up (overlap).
 
+multiseq <- matrix(data = c('ACTATGAGTA', 'ACTA', "ACTATGAGTA", "ACTATCTGAGAGTA"))
+
+multitrans <- function(multiseq){
+  output <- matrix(nrow=(nrow(multiseq)), ncol=1)
+  for(i in 1:(nrow(multiseq))){
+  output[i,1] <- translate(multiseq[i,1])
+  }
+  return(output)
+}
+
+proteins = multitrans(multiseq)
 
 
 # 7. One more thing: could you also write a summary-type function that would report percentage overlap

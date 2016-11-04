@@ -235,25 +235,25 @@ hurdle2(10, 7)
 # t = number of 5 min intervals
 
 # average walking speed = 3.1 mph
-# if 3.1 mph then .0833 miles per 5 min on average
+# if 3.1 mph then .0833 miles per 5 min on average, so half that per x and y direction
 
 progress <- function(t){
   datalist=list()
   for(i in 1:t){
-    lat <- (mean(abs(rnorm(100, mean = 0.08333333, sd = 1)))) 
-    lon <- (mean(abs(rnorm(100, mean = 0.08333333, sd = 1)))) 
-    dis <- (sqrt(lat)+sqrt(lon))
+    lat <- (mean(abs(rnorm(100, mean = 0.0415, sd = .001)))) 
+    lon <- (mean(abs(rnorm(100, mean = 0.0415, sd = .001)))) 
+    dis <- (sqrt(lat)+sqrt(lon))/2
     dat <- data.frame(dis=dis)
     dat$time <- i*5
     datalist[[i]] <- dat
   }
 big_data = do.call(rbind,datalist)
 big_data$dis2 = cumsum(big_data$dis)
-plot(big_data$dis2 ~ big_data$time, xlab='Time (Min)', ylab='Distance Traveled',type='b')
+plot(big_data$dis2 ~ big_data$time, xlab='Time (Min)', ylab='Distance Traveled (Miles)',type='b')
 print(big_data)
 }
 
-progress(10)
+progress(5)
 
  
 # 15. Professor Savitzky is deeply concerned to realise that the member of faculty was, in fact, at the top of
@@ -261,7 +261,25 @@ progress(10)
 # starting point is a deadly cliff! He asks if you could run your simulation to see how long, on average,
 # until the faculty member plummets to their doom.
 
+progress2 <- function(t){
+  datalist=list()
+  for(i in 1:t){
+    lat <- (mean(abs(rnorm(100, mean = 0.0833, sd = .005)))) 
+    lon <- (mean(abs(rnorm(100, mean = 0.0833, sd = .005)))) 
+    dis <- (sqrt(lat)+sqrt(lon))/2
+    dat <- data.frame(dis=dis)
+    dat$time <- i*5
+    datalist[[i]] <- dat
+  }
+  big_data = do.call(rbind,datalist)
+  big_data$dis2 = cumsum(big_data$dis)
+  plot(big_data$dis2 ~ big_data$time, xlab='Time (Min)', ylab='Distance Traveled (Miles)',type='b')
+  print(big_data)
+  print(paste('The faculty member will be doomed at', big_data$time[which(big_data$dis2>=5)], 'minutes'))
+  
+}
 
+progress2(20)
 # 16. Sadly, by the time you have completed your simulations the faculty member has perished. Professor
 # Savitzky is keen to ensure this will never happen again, and so has suggested each faculty member
 # be attached, via rubber band, to a pole at the centre of the site whenever conducting fieldwork 3. He

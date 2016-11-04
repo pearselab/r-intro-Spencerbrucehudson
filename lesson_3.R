@@ -23,10 +23,11 @@ race <- function(first, second){
 race(noodles, sawyer)
 
 # 2. Implement a point class that holds x and y information for a point in space.
-wilmington <- list(lat=39.7391, lon=75.5398, name='Wilmington')
-class(wilmington) <- 'Point'
-logan <- list(lat=41.7, lon=111.8, name='Logan')
-class(logan) <- 'Point'
+# wilmington <- list(lat=39.7391, lon=75.5398, name='Wilmington')
+# class(wilmington) <- 'Point'
+# logan <- list(lat=41.7, lon=111.8, name='Logan')
+# class(logan) <- 'Point'
+
 
 point <- function(x, y){
   output <- list(x=x, y=y)
@@ -34,27 +35,38 @@ point <- function(x, y){
   return(output)
 }
 
+point1 = point(2,4)
+point2 = point(1,6)
 # 3. Write a distance method that calculates the distance between two points in space.
-deg2rad <- function(deg) {(deg*pi)/(180)}
+# deg2rad <- function(deg) {(deg*pi)/(180)}
 
   distance <- function(loc1, loc2){
     if(!inherits(loc1, "Point") | !inherits(loc2, "Point"))
       stop("You haven’t given me two points!")
-    R = 3961 # miles
-    lat1 = deg2rad(loc1$lat)
-    lat2 = deg2rad(loc2$lat)
-    lon1 = deg2rad(loc1$lon)
-    lon2 = deg2rad(loc2$lon)
-    dlon = lon2 - lon1
-    dlat = lat2 - lat2
-    # dlon = deg2rad(loc2$lon - loc1$lon)
-    # dlat = deg2rad(loc2$lat - loc1$lat)
-    a = (sin(dlat/2))^2 + cos(lat1) * cos(lat2) * (sin(dlon/2))^2 
-    c = 2 * atan2(sqrt(a), sqrt(1-a) ) 
-    d = R * c 
-      print(paste('The distance between', loc1$name, 'and', loc2$name, 'is approximately', round(d,digits=0), 'miles.'))
-    }
-distance(wilmington, logan)
+    x1 = loc1$x
+    x2 = loc2$x
+    y1 = loc1$y
+    y2 = loc2$y
+    dy = y2 - y1
+    dx = x2 - x1
+    d = sqrt((dy^2)+(dx^2))
+    return(d)
+    # R = 3961 # miles
+    # lat1 = deg2rad(loc1$lat)
+    # lat2 = deg2rad(loc2$lat)
+    # lon1 = deg2rad(loc1$lon)
+    # lon2 = deg2rad(loc2$lon)
+    # dlon = lon2 - lon1
+    # dlat = lat2 - lat2
+    # # dlon = deg2rad(loc2$lon - loc1$lon)
+    # # dlat = deg2rad(loc2$lat - loc1$lat)
+    # a = (sin(dlat/2))^2 + cos(lat1) * cos(lat2) * (sin(dlon/2))^2 
+    # c = 2 * atan2(sqrt(a), sqrt(1-a) ) 
+    # d = R * c 
+    #   print(paste('The distance between', loc1$name, 'and', loc2$name, 'is approximately', round(d,digits=0), 'miles.'))
+  
+      }
+distance(point1, point2)
 
 # 4. Implement a line class that takes two point objects and makes a line between them.
 a<- list(x=39.7391, y=100.5398)
