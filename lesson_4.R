@@ -51,7 +51,6 @@ supersum(catdata)
 nucleotide <- c('T','C','A','G')
 table <- expand.grid(nucleotide, nucleotide, nucleotide)
 table$codon <- paste(table$Var1, table$Var2, table$Var3, sep="")
-
 table$amino <- table$codon
 table$amino[table$amino==c('GCT')]<-'A'
 table$amino[table$amino==c('GCC')]<-'A'
@@ -86,6 +85,8 @@ table$amino[table$amino==c('CAC')]<-'H'
 table$amino[table$amino==c('AAT')]<-'I'
 table$amino[table$amino==c('ATC')]<-'I'
 table$amino[table$amino==c('ATA')]<-'I'
+table$amino[table$amino==c('ATT')]<-'I'
+
 table$amino[table$amino==c('ATG')]<- "START"
 table$amino[table$amino==c('TTA')]<-'L'
 table$amino[table$amino==c('TTG')]<-'L'
@@ -113,28 +114,32 @@ table$amino[table$amino==c('TCG')]<-'S'
 table$amino[table$amino==c('AGT')]<-'S'
 table$amino[table$amino==c('AGC')]<-'S'
 
-table$amino[table$amino==c('ACT','ACC','ACA','ACG')]<-'T'
+table$amino[table$amino==c('ACT')]<-'T'
+table$amino[table$amino==c('ACC')]<-'T'
+table$amino[table$amino==c('ACA')]<-'T'
+table$amino[table$amino==c('ACG')]<-'T'
 
 table$amino[table$amino==c('TGG')]<-'W'
-table$amino[table$amino==c('TAT','TAC')]<-'Y'
-table$amino[table$amino==c('GTT','GTC','GTA','GTG')]<-'V'
-table$amino[table$amino==c('TAA','TGA')]<-'STOP'
+table$amino[table$amino==c('TAT')]<-'Y'
+table$amino[table$amino==c('TAC')]<-'Y'
+
+table$amino[table$amino==c('GTT')]<-'V'
+table$amino[table$amino==c('GTC')]<-'V'
+table$amino[table$amino==c('GTA')]<-'V'
+table$amino[table$amino==c('GTG')]<-'V'
+
+table$amino[table$amino==c('TAA')]<-'STOP'
+table$amino[table$amino==c('TGA')]<-'STOP'
 table$amino[table$amino==c('TAG')]<-'STOP'
 
+## Example Sequence
+sequence <- 'ACGATATACGA'
 
-grep('CCA', table$amino)
-
-
-
-translate <- function(code){
-
-  
-  a <- substr(code, 1, 3)
-  b <- substr(code, 4, 6)
-  c <- substr(code, 7, 9)
-  d <- substr(code, 10, 12)
-  
-  return(paste(a,b,c,d))
+translate <- function(sequence){
+  a <- sapply(seq(from=1, to=nchar(sequence), by=3), function(i) substr(sequence, i, i+2))
+  b <- data.frame(a=a)
+  grep('')
+  cat(a,sep='')
 }
 
 
